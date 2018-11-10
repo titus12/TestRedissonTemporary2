@@ -15,7 +15,6 @@ public class Main {
             Thread tr = new Thread(new TestThread());
             tr.start();
 
-
           /*  ScheduledThreadPoolExecutor se = new ScheduledThreadPoolExecutor(1);
             int count = 100;
             se.scheduleAtFixedRate(
@@ -59,5 +58,11 @@ public class Main {
         }catch (Exception e){
             throw new RuntimeException(region + " get cache failure from redis!!! " + e.getMessage());
         }
+    }
+
+    public static void releaseLocalCachedMap(final String region) throws Exception {
+        RLocalCachedMap<String, Long> cache = rLocalCachedMap.get(region);
+        cache.destroy();
+        rLocalCachedMap.remove(region);
     }
 }
